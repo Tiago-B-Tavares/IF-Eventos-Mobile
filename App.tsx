@@ -1,21 +1,17 @@
+
 import React from 'react';
-import { Linking, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {AuthProvider} from './src/contexts/Auth';
+import {Router} from './src/routes/Routes';
 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import Login from './src/pages/login';
 
-// Adicionando os ícones à biblioteca
-library.add(faEnvelope, faLock);
-
-export default function App() {
+const App = () => {
   return (
-   <>
-    <Login />
-   </>
+
+      <AuthProvider>
+          <Router />
+      </AuthProvider>
+
   );
-}
+};
 
-
+export default App;
