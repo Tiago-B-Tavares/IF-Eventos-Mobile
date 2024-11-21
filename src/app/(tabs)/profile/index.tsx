@@ -14,6 +14,11 @@ export default function Profile() {
          <Ionicons name="person" size={14} color={'#fff'} />
          </Text>
         </Pressable>
+        <Pressable onPress={() => router.push('/profile/settings')}>
+         <Text className='text-lg'>
+         <Ionicons name="settings" size={24} color={'#fff'} />
+         </Text>
+        </Pressable>
         <SignOutButton />
       </View>
     </>
@@ -26,6 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#232323',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 50
   },
 
   button: {

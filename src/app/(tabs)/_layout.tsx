@@ -35,105 +35,81 @@ export default function TabLayout() {
 
           <Tabs.Screen name="index" options={{
             headerShown: false,
-
-            tabBarIcon: ({ color, size, focused }) => {
+        tabBarIcon: ({color, size, focused}) => {
               if (focused) {
                 return (
-                  <View className='flex flex-col justify-center items-center'>
-                    <Ionicons name="home" size={size} color={color} />
-                    <Text className='text-sm text-[#65d66a]'>
-                      Início
-                    </Text>
-                  </View>
-                )
+        <View className='flex flex-col justify-center items-center'>
+          <Ionicons name="home" size={size} color={color} />
+          <Text className='text-sm text-[#65d66a]'>
+            Início
+          </Text>
+        </View>
+        )
               }
-              return (
-                <View className='flex flex-col justify-center items-center'>
-                  <Ionicons name="home-outline" size={size} color={color} />
-                  <Text className='text-sm text-[#8b8b8bcb]'>
-                    Início
-                  </Text>
-                </View>
-              )
+        return (
+        <View className='flex flex-col justify-center items-center'>
+          <Ionicons name="home-outline" size={size} color={color} />
+          <Text className='text-sm text-[#8b8b8bcb]'>
+            Início
+          </Text>
+        </View>
+        )
             },
           }} />
 
-          <Tabs.Screen name="activities" options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size, focused }) => {
-              if (focused) {
-                return (
-                  <View className='flex flex-col justify-center items-center'>
-                    <Ionicons name="list" size={size} color={color} />
-                    <Text className='text-sm text-[#65d66a]'>
-                      Atividades
-                    </Text>
-                  </View>
-                )
-              }
-              return (
-                <View className='flex flex-col justify-center items-center'>
-                  <Ionicons name="list-outline" size={size} color={color} />
-                  <Text className='text-sm text-[#8b8b8bcb] text-center'>
-                    Atividades
-                  </Text>
-                </View>
-              )
-            }
-          }} />
 
-          <Tabs.Screen name="inscriptions" options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size, focused }) => {
-              if (focused) {
-                return (
-                  <View className='flex flex-col justify-center items-center'>
-                    <Ionicons name="clipboard" size={size} color={color} />
-                    <Text className='text-sm text-[#65d66a]'>
-                      Inscrições
-                    </Text>
-                  </View>
-                )
-              }
+        <Tabs.Screen name="inscriptions" options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size, focused }) => {
+            if (focused) {
               return (
                 <View className='flex flex-col justify-center items-center'>
-                  <Ionicons name="clipboard-outline" size={size} color={color} />
-                  <Text className='text-sm text-[#8b8b8bcb]'>
+                  <Ionicons name="clipboard" size={size} color={color} />
+                  <Text className='text-sm text-[#65d66a]'>
                     Inscrições
                   </Text>
                 </View>
               )
             }
+            return (
+              <View className='flex flex-col justify-center items-center'>
+                <Ionicons name="clipboard-outline" size={size} color={color} />
+                <Text className='text-sm text-[#8b8b8bcb]'>
+                  Inscrições
+                </Text>
+              </View>
+            )
+          }
 
 
-          }} />
+        }} />
 
 
-          <Tabs.Screen name="profile" options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size, focused }) => {
-              if (focused) {
-                return (
-                  <View className='flex flex-col justify-center items-center'>
-                    <Ionicons name="person" size={size} color={color} />
-                    <Text className='text-sm text-[#65d66a]'>
-                      Perfil
-                    </Text>
-                  </View>
-                )
-              }
+        <Tabs.Screen name="profile" options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size, focused }) => {
+            if (focused) {
               return (
                 <View className='flex flex-col justify-center items-center'>
-                  <Ionicons name="person-outline" size={size} color={color} />
-                  <Text className='text-sm text-[#8b8b8bcb]'>
+                  <Ionicons name="person" size={size} color={color} />
+                  <Text className='text-sm text-[#65d66a]'>
                     Perfil
                   </Text>
                 </View>
               )
             }
-          }} />
-        </Tabs>
-      </SignedIn>
+            return (
+              <View className='flex flex-col justify-center items-center'>
+                <Ionicons name="person-outline" size={size} color={color} />
+                <Text className='text-sm text-[#8b8b8bcb]'>
+                  Perfil
+                </Text>
+              </View>
+            )
+          }
+        }} />
+      </Tabs>
+    </SignedIn >
       <SignedOut>
         <SignInScreen />
       </SignedOut>

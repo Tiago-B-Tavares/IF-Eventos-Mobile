@@ -4,7 +4,10 @@ import { Slot, Stack } from 'expo-router'
 import React from 'react'
 import "../styles/global.css";
 import { NativeBaseProvider } from 'native-base';
+import { Image, View, Text } from 'react-native';
+
 export default function RootLayout() {
+  
 
   const tokenCache = {
     async getToken(key: string) {
@@ -41,8 +44,20 @@ export default function RootLayout() {
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
         <NativeBaseProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)"  />
+          <Stack screenOptions={{
+            headerShown: true, 
+            headerTitle: () => (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Image
+                  source={require('../assets/images/logo003.png')}
+                  alt="logo"
+                  resizeMode="contain"
+                  style={{ width: 200, height: 50, borderWidth: 1 }} // Ajuste o tamanho conforme necessário
+                />
+              </View>
+            ),
+          }}>
+            <Stack.Screen name="(tabs)" />
           </Stack>
         </NativeBaseProvider>
       </ClerkLoaded>
