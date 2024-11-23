@@ -52,7 +52,7 @@ export default function RootLayout() {
                   source={require('../assets/images/logo003.png')}
                   alt="logo"
                   resizeMode="contain"
-                  style={{ width: 200, height: 50, borderWidth: 1 }} // Ajuste o tamanho conforme necessário
+                  style={{ width: 170, height: 40, borderWidth: 1 }} // Ajuste o tamanho conforme necessário
                 />
               </View>
             ),

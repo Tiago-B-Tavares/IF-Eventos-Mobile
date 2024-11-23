@@ -102,3 +102,14 @@ export interface User {
     googleId: string | null;
     role: string;
 }
+export interface InscriptionProps {
+    id: string;
+    atividade_id: string;
+    atividade: {
+        horario: string,
+        nome: string,
+        local: string,
+        descricao: string,
+        vagas: number
+    }
+}
