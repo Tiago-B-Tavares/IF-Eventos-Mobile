@@ -5,7 +5,7 @@ import React from 'react'
 import "../styles/global.css";
 import { NativeBaseProvider } from 'native-base';
 import { Image, View, Text } from 'react-native';
-
+import { RootSiblingParent } from 'react-native-root-siblings';
 export default function RootLayout() {
   
 
@@ -44,6 +44,7 @@ export default function RootLayout() {
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
         <NativeBaseProvider>
+        <RootSiblingParent>
           <Stack screenOptions={{
             headerShown: true, 
             headerTitle: () => (
@@ -59,8 +60,11 @@ export default function RootLayout() {
           }}>
             <Stack.Screen name="(tabs)" />
           </Stack>
+          </RootSiblingParent>
         </NativeBaseProvider>
       </ClerkLoaded>
     </ClerkProvider>
   )
 }
+{/* <- use RootSiblingParent to wrap your root component */}
+

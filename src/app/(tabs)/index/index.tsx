@@ -3,12 +3,15 @@ import { View, Text, ActivityIndicator, Pressable, FlatList, ScrollView } from '
 import { Image } from 'native-base';
 import { RefreshControl, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
-import { api } from '@/services/setupApiClient';
+
 import { useAuth, useSession, useUser } from '@clerk/clerk-expo';
-import Card from '@/src/components/CardEvento';
-import Title from '@/src/components/Title';
+
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { api } from '@/services/setupApiClient';
+import Title from '@/src/components/Title';
+import Card from '@/src/components/CardEvento';
+
 
 interface EventoProps {
   id: string;
@@ -55,7 +58,7 @@ export default function InitialScreen() {
   }
 
   return (
-    <GestureHandlerRootView className="flex-1" style={{ marginBottom: 60 }}>
+    <GestureHandlerRootView className="flex-1 items-center justify-center mx-4" style={{ marginBottom: 70 }}>
       <View>
         <Text>
           Olá, {user?.firstName}
@@ -64,7 +67,7 @@ export default function InitialScreen() {
       <ScrollView
         refreshControl={<RefreshControl refreshing={loading} onRefresh={fetchEventos} />}
       >
-        <View className="flex flex-col gap-4 border">
+        <View className="flex flex-col gap-4 justify-center ">
           <Title titleText="Últimos Eventos" />
           {eventos.map((evento) => (
             <Card

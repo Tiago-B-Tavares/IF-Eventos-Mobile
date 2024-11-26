@@ -4,24 +4,23 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
-export default function Card({ id, image, title, local, dateInitial, dateFinal, description }: any) {
+export default function Card({ id, image , title, local, dateInitial, dateFinal, description }: any) {
     const [expanded, setExpanded] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
 
     return (
         <Box
             key={id}
-            className="flex m-4 w-screen items-center bg-white "
+            className="flex rounded-lg m-4"
             borderRadius="lg"
             shadow="9"
-            overflow="hidden"
             _light={{ backgroundColor: "gray.50" }}
             _dark={{ backgroundColor: "gray.700" }}
         >
             {/* Image Section */}
             <Box className="flex items-center w-full justify-center  rounded-lg ">
                 <Image
-                    source={{ uri: image }}
+                    source={{ uri: image as string }}
                     alt="Evento"
                     className="rounded-t-lg w-full"
                     height={'200px'}
@@ -31,7 +30,7 @@ export default function Card({ id, image, title, local, dateInitial, dateFinal, 
             </Box>
 
             {/* Content Section */}
-            <Stack p={4} space={3} className="w-full ">
+            <Stack p={4} space={3}  >
                 <Stack>
                     <Text className="text-2xl font-bold text-orange-700" numberOfLines={1} ellipsizeMode="tail">
                         {title}

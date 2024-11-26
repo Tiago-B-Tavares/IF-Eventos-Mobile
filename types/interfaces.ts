@@ -42,6 +42,7 @@ export interface InscritosProps {
 }
 
 export interface AtividadesProps {
+    inscrito: any;
     id: string;
     horario: string;
     nome: string;
@@ -52,8 +53,14 @@ export interface AtividadesProps {
     createdAt: string;
     concomitante: boolean;
     organizadores: OrganizadorProps[];
-    inscricoes: InscritosProps[];
     ch: number;
+    inscricoes: [
+        {
+            id: string,
+            participante_id: string,
+            atividade_id: string
+        }
+    ]
 }
 
 export interface CreateAtividadesProps {
@@ -85,6 +92,7 @@ export interface ActivitiesProps {
     concomitante: boolean;
     ch: number;
     evento_id: string | null;
+    
 }
 
 export interface CreateColabProps {

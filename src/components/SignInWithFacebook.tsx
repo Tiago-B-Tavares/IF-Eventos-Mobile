@@ -1,9 +1,9 @@
-import React from 'react'
+
 import * as WebBrowser from 'expo-web-browser'
 import { Text, View, Button, Image, Pressable } from 'react-native'
-import { Link } from 'expo-router'
+
 import { useOAuth } from '@clerk/clerk-expo'
-import * as Linking from 'expo-linking'
+import React = require('react')
 
 export const useWarmUpBrowser = () => {
   React.useEffect(() => {

@@ -4,6 +4,8 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import SignOutButton from '@/src/components/SignOutButton';
 
+
+
 export default function Profile() {
   return (
     <>
