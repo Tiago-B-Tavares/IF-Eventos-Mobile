@@ -45,7 +45,8 @@ export default function SignInScreen() {
         console.error(JSON.stringify(signInAttempt, null, 2));
       }
     } catch (err: any) {
-      // console.error(JSON.stringify(err, null, 2));
+      console.log("Erro ao tentar efetuar o login!", err.status);
+      
 
       if (err.status === 400) {
         Alert.alert('Atenção', 'Email ou senha incorretos.');

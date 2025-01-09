@@ -58,15 +58,15 @@ export default function Atividades() {
     }
   }
 
-  
+
   useEffect(() => {
-    
+
     if (isLoaded && userId && id) {
       getActivity();
     }
   }, [id, userId, isLoaded]);
 
- 
+
   const isAlreadyInscribed = (atividadeId: string) => {
     const atividade = activity.find((atividade) => atividade.id === atividadeId);
     return atividade?.inscricoes.some(
@@ -75,7 +75,7 @@ export default function Atividades() {
   };
 
   return (
-    <GestureHandlerRootView className="flex-1 bg-gray-100">
+    <GestureHandlerRootView className="flex-1 bg-gray-100" style={{ marginBottom: 60 }}  >
       <FlatList
         data={activity}
         keyExtractor={(item) => item.id}
@@ -86,7 +86,7 @@ export default function Atividades() {
           <View className="px-4 py-8 justify-center items-center">
             <Ionicons name="information-circle" size={52} color="#ef4444" />
             <Text className="text-center text-xl text-green-800">
-              Você ainda não se inscreveu em nenhuma atividade.
+              Você ainda não se inscreveu em nenhuma atividade deste evento.
             </Text>
           </View>
         }
@@ -94,16 +94,19 @@ export default function Atividades() {
           <View key={item.id} className="w-full bg-white shadow-lg rounded-lg p-6 mb-4">
             <Text className="text-2xl font-bold text-gray-800 mb-2">{item.nome}</Text>
             <Text className="text-gray-600 mb-1">{item.descricao}</Text>
-            <Text className="text-gray-600 mb-1">⚡ Horário: {item.horario}</Text>
+            <Text className="text-gray-600 mb-1">⚡ Horário: {new Date(item.horario).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</Text>
             <Text className="text-gray-600 mb-1">🏢 Local: {item.local}</Text>
             <Text className="text-gray-600 mb-1">🔢 Vagas: {item.vagas}</Text>
 
             <View className="mt-2">
-              <Text className="text-gray-800 font-semibold mb-1">Organizadores:</Text>
+              <Text className="font-semibold mb-1">Proponentes:</Text>
               {item.organizadores.map((org, index) => (
-                <Text key={index} className="text-gray-600 mb-1">
-                  {org.organizador.nome}
-                </Text>
+                <View key={index} className="mb-1 border-2  rounded-lg" style={{ borderColor: '#93c5fd' }}>
+                  <Text className="text-gray-600 mb-1 ml-2">
+                    {org.organizador.nome}
+                  </Text>
+                </View>
+
               ))}
             </View>
 
@@ -116,6 +119,7 @@ export default function Atividades() {
               }}
               disabled={isAlreadyInscribed(item.id)}
             >
+
               <Text className="text-center text-white font-bold p-4">
                 {isAlreadyInscribed(item.id) ? "Você já está Inscrito" : "Participar"}
               </Text>

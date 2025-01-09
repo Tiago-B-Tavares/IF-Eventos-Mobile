@@ -1,36 +1,55 @@
 {
   "expo": {
-    "name": "IF-Eventos-App",
-    "slug": "IF-Eventos-App",
+    "scheme": "if-eventos",
+    "name": "IF-Eventos",
+    "slug": "if-eventos",
+    "platforms": ["ios", "android", "web"],
+    "backgroundColor": "#ffffff",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
+    "icon": "./src/assets/icon.png",
     "splash": {
-     
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitir IF-Eventos utilizar sua localização."
+        }
+      ], [
+        "expo-camera",
+        {
+          "cameraPermission": "Permitir IF-Eventos acessar sua câmera",
+          "microphonePermission": "Permitir IF-Eventos acessar  o seu microfone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ],
+    
     "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-       
-        "backgroundColor": "#ffffff"
+      "supportsTablet": true,
+      "bundleIdentifier": "com.expo.ifeventos",
+      "infoPlist": {
+        "UIBackgroundModes": ["location"],
+        "NSLocationWhenInUseUsageDescription": "Este aplicativo usa sua localização.",
+        "NSLocationAlwaysUsageDescription": "Este aplicativo usa sua localização em segundo plano."
       }
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static"
-     
+    "android": {
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
+      "package": "com.expo.ifeventos",
+      "backgroundLocation": true,
+      "useNextNotificationsApi": true
     },
-    "plugins": [
-      "expo-router",
-      "expo-font"
-    ],
-    "experiments": {
-      "typedRoutes": true
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
   }
 }

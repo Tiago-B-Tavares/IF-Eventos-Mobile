@@ -3,10 +3,14 @@ import { router } from 'expo-router';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import SignOutButton from '@/src/components/SignOutButton';
+import { useUser } from '@clerk/clerk-expo';
 
 
 
 export default function Profile() {
+  const { user } = useUser();
+const sex = user?.publicMetadata.gender as string
+
   return (
     <>
 
@@ -19,6 +23,9 @@ export default function Profile() {
         <Pressable onPress={() => router.push('/profile/settings')}>
          <Text className='text-lg'>
          <Ionicons name="settings" size={24} color={'#fff'} />
+         </Text>
+         <Text className='text-lg text-white'>
+         {sex}
          </Text>
         </Pressable>
         <SignOutButton />

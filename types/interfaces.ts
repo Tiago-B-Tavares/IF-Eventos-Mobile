@@ -114,6 +114,7 @@ export interface InscriptionProps {
     id: string;
     atividade_id: string;
     atividade: {
+        data: string;
         horario: string,
         nome: string,
         local: string,

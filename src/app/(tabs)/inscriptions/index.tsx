@@ -1,20 +1,25 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ActivityIndicator, Pressable, FlatList } from 'react-native';
-
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { View, Text, ActivityIndicator, Pressable, FlatList, Alert, Button, Modal } from 'react-native';
 import { useAuth } from '@clerk/clerk-expo';
-
 import { RefreshControl, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { api } from '@/services/setupApiClient';
 import { InscriptionProps } from '@/types/interfaces';
 
 
+import ReadQrCode from './components/readQrCode';
+
+
+
 export default function Inscriptions() {
+
   const { isLoaded, userId } = useAuth();
   const [inscriptions, setInscriptions] = useState<InscriptionProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Fetch inscrições do usuário
+  
+
+
   const getInscriptions = useCallback(async () => {
     if (!userId) return;
     setLoading(true);
@@ -28,33 +33,30 @@ export default function Inscriptions() {
     }
   }, [userId]);
 
-  // Cancelar inscrição
+
+
+  
+
   const cancelInscription = async (atividade_id: string, participante_id: string) => {
     if (!userId) return;
-
     try {
-      await api.delete(`/inscrever`, {
-        data: {
-          atividade_id,
-          participante_id,
-        },
-      });
-      // Atualize a lista localmente, caso o backend não retorne a lista atualizada
-      setInscriptions((prev) =>
-        prev.filter((inscription) => inscription.atividade_id !== atividade_id)
-      );
+      await api.delete('/inscrever', { data: { atividade_id, participante_id } });
+      setInscriptions((prev) => prev.filter((inscription) => inscription.atividade_id !== atividade_id));
     } catch (error) {
       console.error('Erro ao cancelar inscrição:', error);
     }
   };
 
+
   useEffect(() => {
     if (isLoaded) {
       getInscriptions();
+
     }
+
   }, [isLoaded, getInscriptions]);
 
-  // Renderizando o estado de carregamento
+
   if (loading && inscriptions.length === 0) {
     return (
       <View className="flex-1 justify-center items-center bg-gray-100">
@@ -63,66 +65,63 @@ export default function Inscriptions() {
     );
   }
 
-  // Renderizando as inscrições
   return (
-    <GestureHandlerRootView className="flex-1 bg-gray-100">
+    <GestureHandlerRootView className="flex-1 bg-gray-100" style={{ marginBottom:65}}>
       <FlatList
         data={inscriptions}
         keyExtractor={(item) => item.atividade_id}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={getInscriptions} />}
         ListEmptyComponent={
           <View className="px-4 py-8 justify-center items-center">
-            <Ionicons name='information-circle' size={52} color="#ef4444" />
-            <Text className="text-center text-xl text-green-800 ">
+            <Ionicons name="information-circle" size={52} color="#ef4444" />
+            <Text className="text-center text-xl text-gray-800">
               Você ainda não se inscreveu em nenhuma atividade.
             </Text>
           </View>
         }
         renderItem={({ item }) => (
-          <View className="mb-4 p-4 bg-white rounded-lg shadow-lg items-stretch justify-center ">
-            <Text className="text-2xl font-bold text-green-800">
-              {item.atividade.nome}
-            </Text>
-            <View className='justify-start  items-center flex flex-row gap-3'>
-
-              <View className="text-gray-600 mt-1 text-lg  flex  flex-row  gap-2 flex-wrap justify-between items-center ">
-                <Text className='text-lg font-semibold'>
-                  Sobre a atividade: 
-                </Text>
-                <Text>
-                  {item.atividade.descricao}
-                </Text>
-              </View>
+          <View className="mb-4 p-4 bg-white rounded-lg shadow-lg border border-gray-200">
+            <Text className="text-2xl font-bold text-green-700">{item.atividade.nome}</Text>
+            <View className="mt-2">
+              <Text className="text-gray-600">
+                <Text className="font-semibold">Descrição:</Text> {item.atividade.descricao}
+              </Text>
             </View>
-            <View className='justify-start  items-center flex flex-row gap-3'>
+            <View className="flex-row items-center mt-2">
               <Ionicons name="time" size={20} color="#FFA500" />
-              <Text className="text-gray-600 mt-1 text-lg  flex  justify-between items-center ">
-                {item.atividade.horario}
-              </Text>
+              <Text className="ml-2 text-gray-600">{item.atividade.horario}</Text>
             </View>
-            <View className='justify-start  items-center flex flex-row gap-3'>
+            <View className="flex-row items-center mt-2">
+              <Ionicons name="calendar" size={20} color="#FFA500" />
+              <Text className="ml-2 text-gray-600">{item.atividade.data}</Text>
+            </View>
+            <View className="flex-row items-center mt-2">
               <Ionicons name="location" size={20} color="#FFA500" />
-              <Text className="text-gray-600 mt-1 text-lg  flex  justify-between items-center ">
-                {item.atividade.local}
-              </Text>
+              <Text className="ml-2 text-gray-600">{item.atividade.local}</Text>
             </View>
-            <View className='justify-start  items-center flex flex-row gap-3'>
-              <MaterialIcons name="confirmation-number" size={24} color="#FFA500" />
-              <Text className="text-gray-600 mt-1 text-lg  flex  justify-between items-center ">
-                {item.atividade.vagas}
-              </Text>
+            <View className="flex-row items-center mt-2">
+              <MaterialIcons name="confirmation-number" size={20} color="#FFA500" />
+              <Text className="ml-2 text-gray-600">{item.atividade.vagas} vagas disponíveis</Text>
             </View>
+            <View className="flex-row mt-4 gap-2">
+              <Pressable
+                onPress={() => cancelInscription(item.atividade_id, userId!)}
+                className="flex-1 rounded-lg flex-col items-center justify-center p-2" style={{ backgroundColor: '#ef4444' }}
+              >
+                <Ionicons name="close-circle" size={24} color="#fff" />
+                <Text className="text-white font-semibold">Cancelar</Text>
+              </Pressable>
 
-
-            <Pressable
-              onPress={() => cancelInscription(item.atividade_id, userId!)}
-              className="mt-4 bg-red-500 p-2 rounded-lg items-center"
-            >
-              <Text className="text-white font-semibold">Cancelar inscrição</Text>
-            </Pressable>
+              <Pressable className="flex-1 bg-green-500 rounded-lg items-center p-2" disabled={false} style={{ backgroundColor: '#10b981' }}
+              >
+                <ReadQrCode title='Check-in' type='checkin' />
+              </Pressable>
+              <Pressable className="flex-1 rounded-lg bg-blue-500 items-center p-2" style={{ backgroundColor: '#3b82f6' }} >
+                <ReadQrCode title='Check-out' type='checkout' />
+              </Pressable>
+            </View>
           </View>
         )}
-        className="px-4 py-4"
       />
     </GestureHandlerRootView>
   );

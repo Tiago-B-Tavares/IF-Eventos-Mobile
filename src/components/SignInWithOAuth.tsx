@@ -40,12 +40,13 @@ const SignInWithOAuth = () => {
   }, [])
 
   return (
-    <View className='flex flex-row items-center justify-center gap-4 border-2 border-gray-400 rounded-2xl p-2 mb-4'>
+    <Pressable className='flex flex-row items-center justify-center gap-4 border-2 border-gray-400 rounded-2xl p-2 mb-4'
+    onPress={onPress}>
       <Image source={require('../assets/images/google.png')} style={{ width: 25, height: 25 }} />
-      <Pressable onPress={onPress}>
+      <View >
         <Text className='text-lg text-gray-600'>Entrar com Google</Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   )
 }
 export default SignInWithOAuth

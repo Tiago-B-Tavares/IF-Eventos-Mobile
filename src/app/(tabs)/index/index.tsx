@@ -1,13 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ActivityIndicator, Pressable, FlatList, ScrollView } from 'react-native';
-import { Image } from 'native-base';
-import { RefreshControl, GestureHandlerRootView } from 'react-native-gesture-handler';
-import Constants from 'expo-constants';
-
-import { useAuth, useSession, useUser } from '@clerk/clerk-expo';
-
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, ActivityIndicator, ScrollView, Alert, RefreshControl } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useAuth, useUser } from '@clerk/clerk-expo';
 import { api } from '@/services/setupApiClient';
 import Title from '@/src/components/Title';
 import Card from '@/src/components/CardEvento';
@@ -24,30 +18,33 @@ interface EventoProps {
   banner: string;
   organizador_id: string;
 }
-
 export default function InitialScreen() {
-  const { isLoaded} = useAuth();
-  const {  user } = useUser();
+  const { isLoaded } = useAuth();
+  const { user } = useUser();
   const [eventos, setEventos] = useState<EventoProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
- 
-  const fetchEventos = useCallback(async () => {
+
+  // Função para buscar eventos
+  const fetchEventos = async () => {
     setLoading(true);
     try {
       const response = await api.get('/todos-eventos');
       setEventos(response.data);
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao buscar eventos:', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
+ 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && user) {
       fetchEventos();
+      
     }
-  }, [isLoaded, fetchEventos]);
+  }, [isLoaded, user]);
+
 
   if (loading && eventos.length === 0) {
     return (
@@ -60,14 +57,12 @@ export default function InitialScreen() {
   return (
     <GestureHandlerRootView className="flex-1 items-center justify-center mx-4" style={{ marginBottom: 70 }}>
       <View>
-        <Text>
-          Olá, {user?.firstName}
-        </Text>
+        <Text>Olá, {user?.firstName}</Text>
       </View>
       <ScrollView
         refreshControl={<RefreshControl refreshing={loading} onRefresh={fetchEventos} />}
       >
-        <View className="flex flex-col gap-4 justify-center ">
+        <View className="flex flex-col gap-4 justify-center">
           <Title titleText="Últimos Eventos" />
           {eventos.map((evento) => (
             <Card

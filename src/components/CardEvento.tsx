@@ -4,9 +4,14 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
-export default function Card({ id, image , title, local, dateInitial, dateFinal, description }: any) {
+export default function Card({ id, image, title, local, dateInitial, dateFinal, description }: any) {
     const [expanded, setExpanded] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
+    const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+    const dataInitialFormatada = `${new Date(dateInitial).getDate() + 1}/${meses.map((m) => m)[new Date(dateInitial).getMonth()]}/${new Date(dateInitial).getFullYear()}`;
+    const dataFinalFormatada = `${new Date(dateFinal).getDate() + 1}/${meses.map((m) => m)[new Date(dateFinal).getMonth()]}/${new Date(dateFinal).getFullYear()}`
+
+
 
     return (
         <Box
@@ -46,7 +51,7 @@ export default function Card({ id, image , title, local, dateInitial, dateFinal,
                     <View className="flex flex-row items-center gap-2">
                         <Ionicons name="calendar" size={20} color="#c2410c" />
                         <Text className="text-base text-orange-700">
-                            {dateInitial} - {dateFinal}
+                            {dataInitialFormatada} - {dataFinalFormatada}
                         </Text>
                     </View>
                 </View>

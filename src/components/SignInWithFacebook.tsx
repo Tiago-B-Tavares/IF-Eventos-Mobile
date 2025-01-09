@@ -3,8 +3,8 @@ import * as WebBrowser from 'expo-web-browser'
 import { Text, View, Button, Image, Pressable } from 'react-native'
 
 import { useOAuth } from '@clerk/clerk-expo'
-import React = require('react')
-
+import * as Linking from 'expo-linking'
+import React from 'react'
 export const useWarmUpBrowser = () => {
   React.useEffect(() => {
     // Warm up the android browser to improve UX
@@ -40,12 +40,13 @@ const SignInWithOAuth = () => {
   }, [])
 
   return (
-    <View className='flex flex-row items-center justify-center gap-4 border-2 border-gray-400 rounded-2xl p-2 mb-4'>
+    <Pressable className='flex flex-row items-center justify-center gap-4 border-2 border-gray-400 rounded-2xl p-2 mb-4'
+    onPress={onPress}>
       <Image source={require('../assets/images/facebook.png')} style={{ width: 25, height: 25 }} />
-      <Pressable onPress={onPress}>
+      <View >
         <Text className='text-lg text-gray-600'>Entrar com Facebook</Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   )
 }
 export default SignInWithOAuth

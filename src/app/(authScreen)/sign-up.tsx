@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, ActivityIndicator } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 
@@ -13,7 +20,7 @@ export default function SignUpScreen() {
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [gender, setGender] = useState("");
+
   const onSignUpPress = async () => {
     if (!isLoaded) return;
 
@@ -24,13 +31,17 @@ export default function SignUpScreen() {
         lastName,
         emailAddress,
         password,
-
       });
 
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
       setPendingVerification(true);
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
+      if (err?.status === 422) {
+        Alert.alert("Atenção", "Email já cadastrado.");
+      } else {
+        Alert.alert("Erro", "Ocorreu um erro ao criar a conta. Tente novamente.");
+      }
     } finally {
       setLoading(false);
     }
@@ -51,7 +62,11 @@ export default function SignUpScreen() {
         console.error(JSON.stringify(signUpAttempt, null, 2));
       }
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      if (err?.status === 422) {
+        Alert.alert("Atenção", "Email já cadastrado.");
+      } else {
+        Alert.alert("Erro", "Código inválido ou expirado. Tente novamente.");
+      }
     } finally {
       setLoading(false);
     }
@@ -92,30 +107,28 @@ export default function SignUpScreen() {
             Preencha os campos abaixo para se cadastrar
           </Text>
 
-          <TextInput
-            className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+          <InputField
             value={firstName}
             placeholder="Nome..."
             onChangeText={(firstName) => setFirstName(firstName)}
           />
-          <TextInput
-            className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+          <InputField
             value={lastName}
             placeholder="Sobrenome..."
             onChangeText={(lastName) => setLastName(lastName)}
           />
-          <TextInput
-            className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+          <InputField
             value={emailAddress}
             placeholder="Email..."
             onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
           />
-          <TextInput
-            className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+          <InputField
             value={password}
             placeholder="Senha..."
             secureTextEntry
-            onChangeText={(password) => setPassword(password)}
+            onChangeText={(password) =>{ if(password.length <= 8) setPassword(password)
+
+            } }
           />
 
           <TouchableOpacity
@@ -139,8 +152,7 @@ export default function SignUpScreen() {
           <Text className="text-lg text-green-700 mb-6 text-center">
             Insira o código enviado para o seu email
           </Text>
-          <TextInput
-            className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+          <InputField
             value={code}
             placeholder="Código de verificação..."
             onChangeText={setCode}

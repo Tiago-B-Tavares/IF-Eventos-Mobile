@@ -1,6 +1,8 @@
 import * as SecureStore from 'expo-secure-store'
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { Slot, Stack } from 'expo-router'
+import * as Notifications from "expo-notifications";
+import { Platform } from "react-native";
 import React from 'react'
 import "../styles/global.css";
 import { NativeBaseProvider } from 'native-base';
@@ -8,7 +10,17 @@ import { Image, View, Text } from 'react-native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 export default function RootLayout() {
   
-
+  const setupNotificationChannel = async () => {
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("location-tracking", {
+        name: "Rastreamento de Localização",
+        importance: Notifications.AndroidImportance.DEFAULT,
+      });
+    }
+  };
+  
+  setupNotificationChannel();
+  
   const tokenCache = {
     async getToken(key: string) {
       try {
@@ -53,7 +65,7 @@ export default function RootLayout() {
                   source={require('../assets/images/logo003.png')}
                   alt="logo"
                   resizeMode="contain"
-                  style={{ width: 170, height: 40, borderWidth: 1 }} // Ajuste o tamanho conforme necessário
+                  style={{ width: 170, height: 40}} 
                 />
               </View>
             ),
@@ -66,5 +78,5 @@ export default function RootLayout() {
     </ClerkProvider>
   )
 }
-{/* <- use RootSiblingParent to wrap your root component */}
+
 
