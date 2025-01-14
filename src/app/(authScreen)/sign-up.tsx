@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
+import { Text, TextInput, TouchableOpacity, View, ActivityIndicator, Alert } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 
@@ -72,28 +65,6 @@ export default function SignUpScreen() {
     }
   };
 
-  const InputField = ({
-    value,
-    placeholder,
-    secureTextEntry = false,
-    onChangeText,
-  }: {
-    value: string;
-    placeholder: string;
-    secureTextEntry?: boolean;
-    onChangeText: (text: string) => void;
-  }) => (
-    <TextInput
-      className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
-      value={value}
-      placeholder={placeholder}
-      placeholderTextColor="#6A6A6A"
-      secureTextEntry={secureTextEntry}
-      autoCapitalize="none"
-      onChangeText={onChangeText}
-    />
-  );
-
   return (
     <View className="flex-1 bg-white px-6 justify-center">
       {loading ? (
@@ -106,39 +77,49 @@ export default function SignUpScreen() {
           <Text className="text-lg text-green-700 mb-6 text-center">
             Preencha os campos abaixo para se cadastrar
           </Text>
+          <View className="w-full flex flex-col px-4 mt-4">
+            <TextInput
+              className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+              value={firstName}
+              placeholder="Nome..."
+              placeholderTextColor="#6A6A6A"
+              onChangeText={(text) => setFirstName(text)}
+            />
+            <TextInput
+              className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+              value={lastName}
+              placeholder="Sobrenome..."
+              placeholderTextColor="#6A6A6A"
+              onChangeText={(text) => setLastName(text)}
+            />
+            <TextInput
+              className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+              value={emailAddress}
+              placeholder="Email..."
+              placeholderTextColor="#6A6A6A"
+              onChangeText={(text) => setEmailAddress(text)}
+            />
+            <TextInput
+              className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
+              value={password}
+              placeholder="Senha..."
+              secureTextEntry
+              placeholderTextColor="#6A6A6A"
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity
+              style={{ backgroundColor: "#FFA500", borderRadius: 10, padding: 5 }}
+              onPress={onSignUpPress}
+            >
+              <Text className=" text-center text-white font-bold text-lg bg-orange-500">
+                Cadastrar
+              </Text>
+            </TouchableOpacity>
 
-          <InputField
-            value={firstName}
-            placeholder="Nome..."
-            onChangeText={(firstName) => setFirstName(firstName)}
-          />
-          <InputField
-            value={lastName}
-            placeholder="Sobrenome..."
-            onChangeText={(lastName) => setLastName(lastName)}
-          />
-          <InputField
-            value={emailAddress}
-            placeholder="Email..."
-            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-          />
-          <InputField
-            value={password}
-            placeholder="Senha..."
-            secureTextEntry
-            onChangeText={(password) =>{ if(password.length <= 8) setPassword(password)
+          </View>
 
-            } }
-          />
 
-          <TouchableOpacity
-            className="bg-orange-500 rounded-lg py-3 mb-4"
-            onPress={onSignUpPress}
-          >
-            <Text className="text-white text-center font-bold text-lg">
-              Cadastrar
-            </Text>
-          </TouchableOpacity>
+
 
           <View className="flex-row justify-center">
             <Text className="text-gray-700">Já possui uma conta?</Text>
@@ -148,17 +129,18 @@ export default function SignUpScreen() {
           </View>
         </View>
       ) : (
-        <View>
-          <Text className="text-lg text-green-700 mb-6 text-center">
+        <View className="my-4">
+          <Text className="text-lg text-green-700 mb-6 text-center p-4">
             Insira o código enviado para o seu email
           </Text>
-          <InputField
+          <TextInput
+            className="border border-green-700 rounded-lg px-4 py-3 text-gray-700 mb-4"
             value={code}
             placeholder="Código de verificação..."
             onChangeText={setCode}
           />
           <TouchableOpacity
-            className="bg-orange-500 rounded-lg py-3"
+           style={{ backgroundColor: "#FFA500", borderRadius: 10, padding: 5 }}
             onPress={onPressVerify}
           >
             <Text className="text-white text-center font-bold text-lg">
