@@ -5,7 +5,7 @@ import { useAuth, useUser } from '@clerk/clerk-expo';
 import { api } from '@/services/setupApiClient';
 import Title from '@/src/components/Title';
 import Card from '@/src/components/CardEvento';
-
+import Toast from "react-native-root-toast";
 
 interface EventoProps {
   id: string;
@@ -30,6 +30,8 @@ export default function InitialScreen() {
     try {
       const response = await api.get('/todos-eventos');
       setEventos(response.data);
+
+
     } catch (error) {
       console.error('Erro ao buscar eventos:', error);
     } finally {
@@ -37,11 +39,11 @@ export default function InitialScreen() {
     }
   };
 
- 
+
   useEffect(() => {
     if (isLoaded && user) {
       fetchEventos();
-      
+
     }
   }, [isLoaded, user]);
 
@@ -53,17 +55,23 @@ export default function InitialScreen() {
       </View>
     );
   }
-
+if(isLoaded && user){
+ Toast.show(`Bem vindo, ${user.firstName}!`, {
+           duration: Toast.durations.LONG,
+           position: Toast.positions.TOP,
+         });
+}
   return (
-    <GestureHandlerRootView className="flex-1 items-center justify-center mx-4" style={{ marginBottom: 70 }}>
+    <GestureHandlerRootView className="flex-1 items-center justify-center mx-4 " style={{ marginBottom: 100 }} >
+      
       <View>
-        <Text>Olá, {user?.firstName}</Text>
+        <Title titleText="Últimos Eventos" />
       </View>
       <ScrollView
         refreshControl={<RefreshControl refreshing={loading} onRefresh={fetchEventos} />}
       >
-        <View className="flex flex-col gap-4 justify-center">
-          <Title titleText="Últimos Eventos" />
+        <View className="flex flex-col gap-4 justify-center ">
+
           {eventos.map((evento) => (
             <Card
               key={String(evento.id)}

@@ -54,6 +54,7 @@ export interface AtividadesProps {
     concomitante: boolean;
     organizadores: OrganizadorProps[];
     ch: number;
+    tipo: string;
     inscricoes: [
         {
             id: string,

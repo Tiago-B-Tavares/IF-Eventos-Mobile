@@ -23,7 +23,7 @@ export default function Card({ id, image, title, local, dateInitial, dateFinal, 
             _dark={{ backgroundColor: "gray.700" }}
         >
             {/* Image Section */}
-            <Box className="flex items-center w-full justify-center  rounded-lg ">
+            <Box className="flex items-center w-full justify-center  rounded-lg p-2">
                 <Image
                     source={{ uri: image as string }}
                     alt="Evento"
@@ -77,7 +77,7 @@ export default function Card({ id, image, title, local, dateInitial, dateFinal, 
                     onPress={() => {
                         setIsLoading(true);
                         router.push(`./activity/${id}`);
-                        setTimeout(() => setIsLoading(false), 1000); // Simulating loading
+                        setTimeout(() => setIsLoading(false), 1000); 
                     }}
                 >
                     {isLoading ? (

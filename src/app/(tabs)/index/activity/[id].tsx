@@ -51,6 +51,8 @@ export default function Atividades() {
     try {
       const response = await api.get(`/evento/atividades?eventoId=${id}`);
       setActivity(response.data || []);
+      console.log(JSON.stringify(response.data));
+      
     } catch (error) {
       console.error("Erro ao buscar atividades:", error);
     } finally {
@@ -92,17 +94,42 @@ export default function Atividades() {
         }
         renderItem={({ item }) => (
           <View key={item.id} className="w-full bg-white shadow-lg rounded-lg p-6 mb-4">
-            <Text className="text-2xl font-bold text-gray-800 mb-2">{item.nome}</Text>
-            <Text className="text-gray-600 mb-1">{item.descricao}</Text>
-            <Text className="text-gray-600 mb-1">⚡ Horário: {new Date(item.horario).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</Text>
-            <Text className="text-gray-600 mb-1">🏢 Local: {item.local}</Text>
-            <Text className="text-gray-600 mb-1">🔢 Vagas: {item.vagas}</Text>
+            <View className="flex flex-row items-center gap-2">
+             
+              <Text className="text-3xl font-bold text-green-800 mb-2">{item.nome}</Text>
+            </View>
+            <View className="flex flex-row items-center gap-2">
+              <Ionicons name="document-text" size={20} color="red.600" />
+              <Text className="text-base  text-orange-800 mb-2">{item.descricao}</Text>
+            </View>
+            <View className="flex flex-row items-center gap-2">
+              <Ionicons name="time" size={20} color="red.600" />
+              <Text className="text-base font-bold text-orange-800 mb-2"> {new Date(item.horario).getHours()+3 + "H" + new Date(item.horario).getMinutes()} </Text>
+            </View>
+            <View className="flex flex-row items-center gap-2">
+              <Ionicons name="location" size={20} color="red.600" />
+              <Text className="text-base font-bold text-orange-800 mb-2"> {item.local}</Text>
+            </View>
+            <View className="flex flex-row items-center gap-2">
+              <Ionicons name="ticket" size={20} color="red.600" />
+              <Text className="text-base font-bold text-orange-800 mb-2"> {item.vagas}</Text>
+            </View>
+            <View className="flex flex-row items-center gap-2">
+              <Ionicons name="information-circle" size={20} color="red.600" />
+              <Text className="text-base font-bold text-orange-800 mb-2"> {item.tipo}</Text>
+            </View>
+
+            
+           
+         
+            
 
             <View className="mt-2">
               <Text className="font-semibold mb-1">Proponentes:</Text>
               {item.organizadores.map((org, index) => (
-                <View key={index} className="mb-1 border-2  rounded-lg" style={{ borderColor: '#93c5fd' }}>
-                  <Text className="text-gray-600 mb-1 ml-2">
+                <View key={index} className="mb-1 border-2  rounded-lg " style={{ borderColor: "#93c5fd", width: "auto", flexDirection: "row", gap: 5 }} >
+                  <Ionicons name="person" size={20} color="#93c5fd" />
+                  <Text className=" mb-1 ml-2 " style={{ color: "#93c5fd" }}>
                     {org.organizador.nome}
                   </Text>
                 </View>

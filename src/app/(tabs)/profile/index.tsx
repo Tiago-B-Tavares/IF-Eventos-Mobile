@@ -1,52 +1,31 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { router } from 'expo-router';
-import React from 'react';
+import { View, Text, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import SignOutButton from '@/src/components/SignOutButton';
 import { useUser } from '@clerk/clerk-expo';
-
-
+import SignOutButton from '@/src/components/SignOutButton';
+import { router } from 'expo-router';
 
 export default function Profile() {
   const { user } = useUser();
-const sex = user?.publicMetadata.gender as string
 
   return (
-    <>
-
-      <View style={styles.container}>
+    <View className="flex-1 justify-center items-center gap-4 bg-white border border-gray-400">
+      <View className=" p-4 mt-6 justify-between items-center">
+        <Ionicons name="person" size={50} color="#9ca3af" className='border-2 border-grey-200 rounded-full p-4' />
+        {user?.fullName && <Text className="text-2xl ">{user?.fullName}</Text>}
+        {user?.emailAddresses[0]?.emailAddress && (
+          <Text className="text-lg text-green-700 p-4">{user?.emailAddresses[0]?.emailAddress}</Text>
+        )}
+      </View>
+      <View className='flex flex-col gap-4'>
         <Pressable onPress={() => router.push('/profile/settings')}>
-         <Text className='text-lg'>
-         <Ionicons name="person" size={14} color={'#fff'} />
-         </Text>
+          <Text className="text-lg text-orange-500">Alterar dados pessoais</Text>
         </Pressable>
         <Pressable onPress={() => router.push('/profile/settings')}>
-         <Text className='text-lg'>
-         <Ionicons name="settings" size={24} color={'#fff'} />
-         </Text>
-         <Text className='text-lg text-white'>
-         {sex}
-         </Text>
+          <Text className="text-lg text-orange-500">Excluir conta</Text>
         </Pressable>
         <SignOutButton />
       </View>
-    </>
+
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#232323',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 50
-  },
-
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
-  },
-});
-

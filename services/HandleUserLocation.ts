@@ -47,7 +47,7 @@ export class HandleUserLocation {
       }
       return position;
     } catch (error) {
-      throw new Error('Erro ao obter localização atual');
+      throw new Error(`Erro ao obter localização atual: ${error}`);
     }
   }
 
@@ -63,10 +63,8 @@ export class HandleUserLocation {
     },
    
       {
-        latitude:  -15.531731796345525,
-        longitude: -47.29362244368439
-        // latitude: -15.562167045745605,
-        // longitude: -47.32790687761094
+        latitude: -15.562167045745605,
+        longitude: -47.32790687761094
       }, 10).toFixed(2))/1000;
   
       

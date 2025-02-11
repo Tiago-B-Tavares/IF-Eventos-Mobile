@@ -35,7 +35,8 @@
       "infoPlist": {
         "UIBackgroundModes": ["location"],
         "NSLocationWhenInUseUsageDescription": "Este aplicativo usa sua localização.",
-        "NSLocationAlwaysUsageDescription": "Este aplicativo usa sua localização em segundo plano."
+        "NSLocationAlwaysUsageDescription": "Este aplicativo usa sua localização em segundo plano.",
+        "NSFaceIDUsageDescription": "Este aplicativo usa Face ID para autenticação."
       }
     },
     "android": {
