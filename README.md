@@ -1,50 +1,18 @@
-# Welcome to your Expo app 👋
+# IF-EVENTOS: SISTEMA DE REGISTRO DE FREQUÊNCIA EM EVENTOS INSTITUCIONAIS
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+ 
+### 📌 Sobre o IF-Eventos
 
-## Get started
+O **IF-Eventos** é uma solução completa para controle de frequência em eventos institucionais, desenvolvida para otimizar a gestão de participantes e atividades no contexto educacional.
 
-1. Install dependencies
+A plataforma é composta por duas interfaces integradas:
 
-   ```bash
-   npm install
-   ```
+- **🖥️ Plataforma Web:** voltada para os **organizadores** e **administradores**, permite o gerenciamento completo de eventos, atividades, inscrições e participantes, além da geração de relatórios, análises estatísticas e certificados de participação.
 
-2. Start the app
+- **📱 Aplicativo Mobile:** desenvolvido para os **participantes**, possibilita **inscrições em atividades**, **check-in e check-out** com autenticação reforçada por **QR Code, geolocalização e biometria**, garantindo segurança e integridade no registro da presença.
 
-   ```bash
-    npx expo start
-   ```
+Juntas, as duas aplicações garantem praticidade para os usuários, agilidade para os organizadores e confiabilidade nos dados coletados.
 
-In the output, you'll find options to open the app in a
+## Documentação
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Para mais informações sobre o sistema, acesse [Wiki](https://github.com/Tiago-B-Tavares/IF-Eventos-Backend/wiki)
